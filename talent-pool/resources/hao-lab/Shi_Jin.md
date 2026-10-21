@@ -2,7 +2,6 @@
 
 > Sources: `Shi_Jin_Resume_AI_Research_Engineering.tex` (primary), `Shi_Jin_Resume_SDE_Test_Engineering.tex`, `main.tex` (Chinese CV); research interests provided directly by Shi Jin. Converted to Markdown; original files not kept. Contact details and grades omitted.
 > Lab: Hao Lab, University of Tennessee — PhD student (starting Spring 2027).
-> Last reviewed: 2026-10-21.
 
 - GitHub: [Chris-Jin02](https://github.com/Chris-Jin02)
 
