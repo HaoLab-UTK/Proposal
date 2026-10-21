@@ -58,21 +58,25 @@ each scan as a dated file in `funding/`. Any field or sponsor type is allowed
    - **Verified**: the sponsor's official page was opened and the details
      (title, deadline, amount, eligibility) were taken from it. Never
      invent or guess details; write "not stated" when a field is missing.
-4. Write a new scan file `funding/YYYY-MM-DD.md` (today's date) using the
-   same structure as the most recent scan file in `funding/`:
-   - Start from the most recent scan file's "Open Calls" and carry forward
-     calls that are still open; update their details if the official page
-     changed.
-   - Add new qualifying calls (skip duplicates, matched by sponsor + program
-     title or URL) and mark them `New` in the "Added" column with today's
-     date. Sort by next deadline.
-   - Move calls whose deadline has passed to "Archive".
-   - Set `Last scanned:` to today's date.
-   - Never edit or delete earlier scan files.
-5. Write everything in English. Commit with a message like
-   `Funding call scan (YYYY-MM-DD): N new calls` and push. If nothing
-   qualifies, still write the scan file (with carried-forward calls) and
-   commit.
+4. No repeats across scans: every call may appear in exactly one scan file.
+   - Before writing, read `funding/seen-calls.md`, the permanent index of
+     every call already reported. Drop any candidate that matches an entry
+     (same sponsor + program, same solicitation/NOFO number, or same URL),
+     even if its deadline or details changed, and even if the scan file that
+     first listed it has since been deleted.
+   - A new round of a recurring program (a new fiscal year, new solicitation
+     number, or new NOFO) counts as a new call.
+5. Write a new scan file `funding/YYYY-MM-DD.md` (today's date) using the
+   same structure as `funding/2026-10-21.md`, containing only this scan's new
+   calls, sorted by next deadline. Set `Last scanned:` to today's date. Never
+   edit or delete earlier scan files.
+6. Append every call in the new scan file to `funding/seen-calls.md` (date,
+   sponsor, program, solicitation number, URL, scan file). Never remove rows
+   from it; the cleanup rule does not touch it.
+7. Write everything in English. Commit the scan file and the index together
+   with a message like `Funding call scan (YYYY-MM-DD): N new calls` and push.
+   If nothing new qualifies, still write the scan file stating that no new
+   calls were found, and commit.
 
 ## Funding Scan Cleanup Rule
 
