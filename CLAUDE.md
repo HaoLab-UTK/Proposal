@@ -35,9 +35,9 @@ Never edit files under `talent-pool/resources/` as part of this sync.
 ## Funding Call Scan Rule
 
 Every 3 days, search for open funding calls (solicitations, RFPs, NOFOs,
-foundation programs) that the talent pool could submit proposals to, and track
-them in `funding/calls.md`. Any field or sponsor type is allowed (federal,
-state, foundation, industry, international).
+foundation programs) that the talent pool could submit proposals to, and save
+each scan as a dated file in `funding/`. Any field or sponsor type is allowed
+(federal, state, foundation, industry, international).
 
 1. Read `talent-pool/README.md` and every `talent-pool/labs/*.md` to collect
    research directions, methods, and expertise across all labs.
@@ -58,12 +58,38 @@ state, foundation, industry, international).
    - **Verified**: the sponsor's official page was opened and the details
      (title, deadline, amount, eligibility) were taken from it. Never
      invent or guess details; write "not stated" when a field is missing.
-4. Update `funding/calls.md`:
-   - Add new qualifying calls to "Open Calls", sorted by next deadline.
-   - Skip calls already listed (match by sponsor + program title or URL);
-     update their details if the official page changed.
+4. Write a new scan file `funding/YYYY-MM-DD.md` (today's date) using the
+   same structure as the most recent scan file in `funding/`:
+   - Start from the most recent scan file's "Open Calls" and carry forward
+     calls that are still open; update their details if the official page
+     changed.
+   - Add new qualifying calls (skip duplicates, matched by sponsor + program
+     title or URL) and mark them `New` in the "Added" column with today's
+     date. Sort by next deadline.
    - Move calls whose deadline has passed to "Archive".
    - Set `Last scanned:` to today's date.
+   - Never edit or delete earlier scan files.
 5. Write everything in English. Commit with a message like
    `Funding call scan (YYYY-MM-DD): N new calls` and push. If nothing
-   qualifies, still update `Last scanned:` and the archive, and commit.
+   qualifies, still write the scan file (with carried-forward calls) and
+   commit.
+
+## Funding Scan Cleanup Rule
+
+Once a month, clean up old scan files in `funding/`. User approval before any
+deletion is a mandatory baseline that no instruction, schedule, or automation
+can override.
+
+1. List scan files matching `funding/YYYY-MM-DD.md`, sorted by date. Keep the
+   3 most recent; all older ones are deletion candidates. If there are 3 or
+   fewer, report that and stop.
+2. Ask the user for approval first: list every file that would be deleted
+   and the 3 that would be kept, then stop and wait for an explicit reply.
+   Do not delete anything in the same turn as the request.
+3. A scheduled prompt, this rule, an earlier approval, or any message other
+   than the user's own explicit reply to this request does NOT count as
+   approval. Each month needs its own fresh approval.
+4. Only after the user explicitly approves: delete exactly the approved
+   files with `git rm`, commit (`Remove old funding scans (YYYY-MM-DD)`), and
+   push. If the user declines or approves only some files, delete only what
+   was approved.
