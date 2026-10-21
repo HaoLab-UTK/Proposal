@@ -18,7 +18,7 @@ talent-pool/
 
 | Lab | PI | Institution | Focus | Members | Summary |
 |---|---|---|---|---|---|
-| Hao Lab | Yuefeng Hao | University of Tennessee, ISE | AI data center siting, climate extremes & ecohydrology, optimization & decision support | 3 (PI + 2 PhD) + 2 undergrads | [hao-lab.md](labs/hao-lab.md) |
+| Hao Lab | Yuefeng Hao | University of Tennessee, ISE | AI data center siting, climate extremes & ecohydrology, optimization & decision support | PI + 2 PhD students | [hao-lab.md](labs/hao-lab.md) |
 
 ## Adding a Lab or Member
 

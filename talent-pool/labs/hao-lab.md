@@ -47,8 +47,6 @@
 | Yuefeng Hao | PI, Assistant Professor | 2026-08 | Climate extremes, ecohydrology, data center siting, decision support | [CV](../resources/hao-lab/Yuefeng_Hao_CV.md) |
 | Yifan Gao | PhD student | 2026 Fall | Data center siting, robust optimization, ML for optimization, NLP, distributed AI workload scheduling | [Research interests](../resources/hao-lab/Yifan_Gao.md) |
 | Shi Jin | PhD student | 2027 Spring | Tariff- and moratorium-aware optimization for AI data center location in the Tennessee Valley | CV pending |
-| Beatrice Eldridge | Undergraduate mentee | — | Not stated | — |
-| Faith Keating | Undergraduate mentee | — | Not stated | — |
 
 ### Member Profiles
 
@@ -79,19 +77,16 @@
 
 Pending: USDA NIFA EGP; USDA NIFA HEC (AI in agricultural systems education, PI, $300K); Schmidt Sciences (decarbonization pathways for buildings and mobility, Co-PI, $4M).
 
-## 5. Ongoing Lab Papers
+## 5. Ongoing PhD Student Papers
 
 1. Yifan Gao & Y. Hao — Robust data center siting under interconnection-queue uncertainty.
 2. Shi Jin & Y. Hao — Tariff- and moratorium-aware AI data center siting in the Tennessee Valley.
-3. Kaylee Jin & Y. Hao — Regional screening of electricity-related water consumption for projected data-center load growth (*Water Resources and Industry*, under review).
-4. Rui Xi, Y. Hao, B. Leib, M. Jin — Irrigation planning under flash drought and flood risks using remote sensing and stochastic optimization.
 
 ## 6. Key Collaborators
 
 - **Jiafu Mao, Xiaoying Shi, Yaoping Wang, Daniel M. Ricciuto, Peter E. Thornton, Forrest M. Hoffman** — Oak Ridge National Laboratory (Earth system modeling, ecosystem vulnerability).
 - **Mingzhou Jin** — University of Tennessee (ISE / ISSE); frequent co-author on optimization and decision support.
 - **Minha Choi** — Sungkyunkwan University (PI's doctoral advisor; hydrology and remote sensing).
-- **Rui Xi, Brian Leib** — co-authors on irrigation decision support.
 
 ## 7. Expertise Index (keyword → who)
 
@@ -114,5 +109,3 @@ Pending: USDA NIFA EGP; USDA NIFA HEC (AI in agricultural systems education, PI,
 ## 8. TODO
 
 - [ ] Add Shi Jin's CV / research statement to `resources/hao-lab/`.
-- [ ] Add research profiles for undergraduate mentees (Beatrice Eldridge, Faith Keating).
-- [ ] Confirm the role of Kaylee Jin (co-author on the data-center water consumption paper).
