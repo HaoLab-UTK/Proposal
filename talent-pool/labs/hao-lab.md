@@ -45,7 +45,7 @@
 |---|---|---|---|---|
 | Yuefeng Hao | PI, Assistant Professor | 2026-08 | Climate extremes, ecohydrology, data center siting, decision support | [CV](../resources/hao-lab/Yuefeng_Hao_CV.md) |
 | Yifan Gao | PhD student | 2026 Fall | Data center siting, robust optimization, ML for optimization, NLP, distributed AI workload scheduling | [Research interests](../resources/hao-lab/Yifan_Gao.md) |
-| Shi Jin | PhD student | 2027 Spring | Computer vision, optimization for AI, AI infrastructure, robotics / embodied AI, physical-world understanding, AI for environment; data center siting | [CV](../resources/hao-lab/Shi_Jin.md) |
+| Shi Jin | PhD student | 2027 Spring | Computer vision, optimization for AI, AI infrastructure, robotics / embodied AI, physical-world understanding, AI for environment; data center siting | [CV](../resources/hao-lab/Shi_Jin.md) · [GitHub](https://github.com/Chris-Jin02) |
 
 ### Member Profiles
 
