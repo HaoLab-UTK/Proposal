@@ -1,16 +1,12 @@
 # Shi Jin (Chris) — CV & Research Interests
 
-> Sources: `Shi_Jin_Resume_AI_Research_Engineering.tex` (primary), `Shi_Jin_Resume_SDE_Test_Engineering.tex`, `main.tex` (Chinese CV); research interests provided directly by Shi Jin. Converted to Markdown; original files not kept. Phone numbers omitted.
+> Sources: `Shi_Jin_Resume_AI_Research_Engineering.tex` (primary), `Shi_Jin_Resume_SDE_Test_Engineering.tex`, `main.tex` (Chinese CV); research interests provided directly by Shi Jin. Converted to Markdown; original files not kept. Contact details and grades omitted.
 > Lab: Hao Lab, University of Tennessee — PhD student (starting Spring 2027).
-
-- Email: sjin@vols.utk.edu
-- GitHub: [Chris-Jin02](https://github.com/Chris-Jin02)
-- LinkedIn: [sjin0907](https://www.linkedin.com/in/sjin0907)
 
 ## Research Interests
 
 1. **Computer Vision** — any form of vision work (detection, classification, generative / diffusion models, multimodal sensing, medical and remote-sensing imagery).
-2. **Optimization** — theory-leaning optimization, applied to AI models (training, efficiency, robustness) and to real-world decision problems.
+2. **Optimization** — any form, from theory to application (e.g., optimization for AI models, infrastructure siting, real-world decision problems).
 3. **AI Infrastructure** — systems that train and serve AI at scale: compute hardware, data centers, data pipelines, workload placement.
 4. **Robotics & Embodied AI** — perception, mapping (SLAM), and decision-making for physical agents.
 5. **AI for Understanding the Physical World** — world models, physics-aware learning, multi-sensor perception of real environments.
@@ -21,7 +17,7 @@
 | Interest | Related experience |
 |---|---|
 | Computer vision | YOLO / EfficientNet detection and classification for substation inspection; CT preprocessing for diffusion-model workflows |
-| Optimization | Ongoing lab paper on tariff- and moratorium-aware AI data center siting; CS 556 Mathematical Foundations of ML; MCM participant |
+| Optimization | Ongoing lab paper on tariff- and moratorium-aware AI data center siting; Mathematical Contest in Modeling (MCM) |
 | AI infrastructure | Server hardware/software test engineering at Quanta (server manufacturing); 350K-scale ETL and retrieval pipeline |
 | Robotics & embodied AI | Robot surveying with SLAM-based infrared/LiDAR registration; 1st Prize, National Robot Championship (Intelligent Robot Innovation Design) |
 | Understanding the physical world | Multi-sensor (infrared thermography + LiDAR) fusion and alignment for digital-twin substation monitoring |
@@ -32,12 +28,9 @@
 | Degree | Institution | Period |
 |---|---|---|
 | Ph.D. (incoming) | University of Tennessee, Knoxville — Hao Lab, Industrial and Systems Engineering | Starting Spring 2027 |
-| M.S. in Computer Science, GPA 3.96/4.00 | Stevens Institute of Technology, Hoboken, NJ, USA | Expected Dec 2026 |
+| M.S. in Computer Science | Stevens Institute of Technology, Hoboken, NJ, USA | Expected Dec 2026 |
 | B.Eng. in Engineering (Joint Program) | Ulster University, Belfast, United Kingdom | 09/2020 – 06/2024 |
 | B.Eng. in Computer Science and Technology | Shaanxi University of Science and Technology, Xi'an, China | 09/2020 – 06/2024 |
-
-- M.S. coursework (all A): CS 570 Data Structures & Algorithms; CS 589 Text Mining & Information Retrieval; CS 556 Mathematical Foundations of ML; ELC 071 Academic Communication.
-- B.Eng. highlighted coursework: Advanced Mathematics (96), Probability Theory (90), System Security (96), Databases (87).
 
 ## Technical Skills
 

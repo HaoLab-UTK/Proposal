@@ -3,7 +3,6 @@
 > Source: `Yuefeng_Hao_CV.pdf` (converted to Markdown; original file not kept).
 > Lab: Hao Lab, University of Tennessee — Principal Investigator.
 
-- Email: yhao12@utk.edu
 - ORCID: [0000-0001-6222-9765](https://orcid.org/0000-0001-6222-9765)
 - Google Scholar: [SzMdl_8AAAAJ](https://scholar.google.com/citations?user=SzMdl_8AAAAJ)
 
@@ -25,13 +24,9 @@
 
 Tickle College of Engineering, University of Tennessee:
 
-| Term | Course | Enrollment | Teaching Evaluation |
-|---|---|---|---|
-| Spring 2025 | IE 200: Engineering Statistics | 40 | 4.6 / 5 |
-| Fall 2025 | IE 200: Engineering Statistics | 91 | 4.5 / 5 |
-| Spring 2026 | IE 200: Engineering Statistics | 25 | 4.6 / 5 |
-| Fall 2026 | IE 591: AI for Engineer Managers | 39 | — |
-| Spring 2027 | IE 465/565: Applied Data Science | 20 | — |
+- IE 200: Engineering Statistics (Spring 2025, Fall 2025, Spring 2026)
+- IE 591: AI for Engineer Managers (Fall 2026)
+- IE 465/565: Applied Data Science (Spring 2027)
 
 ## Mentoring
 

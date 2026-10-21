@@ -1,6 +1,8 @@
 # Talent Pool
 
-A searchable directory of people's CVs and research directions, organized by lab.
+A searchable directory of people's CVs and research directions, organized by lab. Its purpose is to help us draft proposals quickly: find who fits a topic, reuse their background and track record, and assemble team descriptions.
+
+Keep only proposal-relevant content (research directions, experience, publications, grants, skills). Leave out personal details such as contact info, GPA, and grades.
 
 ## Structure
 

@@ -9,7 +9,6 @@
 |---|---|
 | PI | Dr. Yuefeng Hao, Assistant Professor (since 08/2026) |
 | Affiliation | Industrial and Systems Engineering (ISE), University of Tennessee; previously Research Assistant Professor and Postdoc at the Institute for a Secure and Sustainable Environment (ISSE), UT |
-| Contact | yhao12@utk.edu |
 | Profiles | [Google Scholar](https://scholar.google.com/citations?user=SzMdl_8AAAAJ) · [ORCID](https://orcid.org/0000-0001-6222-9765) |
 | PI background | Ph.D./M.S. Water Resources Engineering (Sungkyunkwan University); B.S. Groundwater Engineering (Jilin University) |
 | Source files | [PI CV](../resources/hao-lab/Yuefeng_Hao_CV.md) · [Yifan Gao](../resources/hao-lab/Yifan_Gao.md) · [Shi Jin](../resources/hao-lab/Shi_Jin.md) |
@@ -64,7 +63,7 @@
 
 **Shi Jin (PhD student)**
 - Background: M.S. Computer Science (Stevens Institute of Technology); B.Eng. Computer Science (Shaanxi University of Science and Technology) and B.Eng. Engineering (Ulster University, joint program).
-- Interests: (1) computer vision of any kind; (2) theory-leaning optimization applied to AI models and real-world decisions; (3) AI infrastructure; (4) robotics and embodied AI; (5) AI for understanding the physical world; (6) AI applied to the real world with an environmental focus (Earth system models, decision support).
+- Interests: (1) computer vision of any kind; (2) optimization in any form, from theory to application; (3) AI infrastructure; (4) robotics and embodied AI; (5) AI for understanding the physical world; (6) AI applied to the real world with an environmental focus (Earth system models, decision support).
 - Experience: YOLO / EfficientNet inspection models and SLAM-based infrared + LiDAR registration for a digital-twin substation robot; CT preprocessing for diffusion-model workflows; server hardware/software test engineering (Quanta); 350K-paper ETL and retrieval platform.
 - Ongoing paper: "Siting Under Moving Rules: A Tariff- and Moratorium-Aware Optimization Model for AI Data Center Location in the Tennessee Valley" (with Y. Hao).
 
@@ -96,7 +95,7 @@ Pending: USDA NIFA EGP; USDA NIFA HEC (AI in agricultural systems education, PI,
 |---|---|
 | Data center siting / location optimization | Yifan Gao, Shi Jin, Yuefeng Hao |
 | Robust / stochastic optimization, scenario analysis | Yifan Gao, Yuefeng Hao |
-| Optimization theory for AI models | Shi Jin |
+| Optimization (theory to application, incl. AI models) | Shi Jin |
 | Energy policy, tariffs, moratoria, interconnection queues | Shi Jin, Yifan Gao |
 | Machine learning for optimization | Yifan Gao |
 | NLP / information extraction | Yifan Gao |
