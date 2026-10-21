@@ -35,7 +35,6 @@ Tickle College of Engineering, University of Tennessee:
 
 ## Mentoring
 
-- **Undergraduate:** Beatrice Eldridge; Faith Keating
 - **Graduate:** Yifan Gao (2026 Fall); Shi Jin (2027 Spring)
 
 ## Grants

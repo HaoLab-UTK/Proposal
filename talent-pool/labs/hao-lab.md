@@ -12,7 +12,7 @@
 | Contact | yhao12@utk.edu |
 | Profiles | [Google Scholar](https://scholar.google.com/citations?user=SzMdl_8AAAAJ) · [ORCID](https://orcid.org/0000-0001-6222-9765) |
 | PI background | Ph.D./M.S. Water Resources Engineering (Sungkyunkwan University); B.S. Groundwater Engineering (Jilin University) |
-| Source files | [PI CV](../resources/hao-lab/Yuefeng_Hao_CV.md) · [Yifan Gao](../resources/hao-lab/Yifan_Gao.md) |
+| Source files | [PI CV](../resources/hao-lab/Yuefeng_Hao_CV.md) · [Yifan Gao](../resources/hao-lab/Yifan_Gao.md) · [Shi Jin](../resources/hao-lab/Shi_Jin.md) |
 
 **One-line summary:** The lab combines hydro-climate science (droughts, heatwaves, water and carbon fluxes) with systems engineering (optimization, decision support, AI). Its newest and fastest-growing thread is siting AI data centers and assessing their energy, water, and land footprint in Tennessee.
 
@@ -46,7 +46,7 @@
 |---|---|---|---|---|
 | Yuefeng Hao | PI, Assistant Professor | 2026-08 | Climate extremes, ecohydrology, data center siting, decision support | [CV](../resources/hao-lab/Yuefeng_Hao_CV.md) |
 | Yifan Gao | PhD student | 2026 Fall | Data center siting, robust optimization, ML for optimization, NLP, distributed AI workload scheduling | [Research interests](../resources/hao-lab/Yifan_Gao.md) |
-| Shi Jin | PhD student | 2027 Spring | Tariff- and moratorium-aware optimization for AI data center location in the Tennessee Valley | CV pending |
+| Shi Jin | PhD student | 2027 Spring | Computer vision, optimization for AI, AI infrastructure, robotics / embodied AI, physical-world understanding, AI for environment; data center siting | [CV](../resources/hao-lab/Shi_Jin.md) |
 
 ### Member Profiles
 
@@ -63,8 +63,10 @@
 - Ongoing paper: "Robust Data Center Siting under Interconnection-Queue Uncertainty: A Comparative Study of Optimization Approaches" (with Y. Hao).
 
 **Shi Jin (PhD student)**
+- Background: M.S. Computer Science (Stevens Institute of Technology); B.Eng. Computer Science (Shaanxi University of Science and Technology) and B.Eng. Engineering (Ulster University, joint program).
+- Interests: (1) computer vision of any kind; (2) theory-leaning optimization applied to AI models and real-world decisions; (3) AI infrastructure; (4) robotics and embodied AI; (5) AI for understanding the physical world; (6) AI applied to the real world with an environmental focus (Earth system models, decision support).
+- Experience: YOLO / EfficientNet inspection models and SLAM-based infrared + LiDAR registration for a digital-twin substation robot; CT preprocessing for diffusion-model workflows; server hardware/software test engineering (Quanta); 350K-paper ETL and retrieval platform.
 - Ongoing paper: "Siting Under Moving Rules: A Tariff- and Moratorium-Aware Optimization Model for AI Data Center Location in the Tennessee Valley" (with Y. Hao).
-- Detailed CV / research statement: TODO.
 
 ## 4. Projects & Funding
 
@@ -94,10 +96,17 @@ Pending: USDA NIFA EGP; USDA NIFA HEC (AI in agricultural systems education, PI,
 |---|---|
 | Data center siting / location optimization | Yifan Gao, Shi Jin, Yuefeng Hao |
 | Robust / stochastic optimization, scenario analysis | Yifan Gao, Yuefeng Hao |
+| Optimization theory for AI models | Shi Jin |
 | Energy policy, tariffs, moratoria, interconnection queues | Shi Jin, Yifan Gao |
 | Machine learning for optimization | Yifan Gao |
 | NLP / information extraction | Yifan Gao |
 | Distributed computing, AI workload scheduling | Yifan Gao |
+| AI infrastructure, server hardware / systems | Shi Jin, Yifan Gao |
+| Computer vision (detection, classification, diffusion models, medical imaging) | Shi Jin |
+| Robotics, embodied AI, SLAM, multi-sensor fusion (infrared + LiDAR) | Shi Jin |
+| AI for understanding the physical world, world models | Shi Jin |
+| AI for environment / Earth system models / decision support | Shi Jin, Yuefeng Hao |
+| Data pipelines (ETL), backend (Django), information retrieval | Shi Jin |
 | Data center water / energy footprint | Yuefeng Hao |
 | Geospatial analysis, remote sensing (MODIS, multi-source) | Yuefeng Hao, Yifan Gao |
 | Hydrology, evapotranspiration, soil moisture | Yuefeng Hao |
@@ -105,7 +114,3 @@ Pending: USDA NIFA EGP; USDA NIFA HEC (AI in agricultural systems education, PI,
 | Carbon cycle, GHG emissions, enhanced rock weathering | Yuefeng Hao |
 | Earth system models (E3SM), ecosystem vulnerability (CIVE) | Yuefeng Hao |
 | Engineering statistics, applied data science, AI education | Yuefeng Hao |
-
-## 8. TODO
-
-- [ ] Add Shi Jin's CV / research statement to `resources/hao-lab/`.
