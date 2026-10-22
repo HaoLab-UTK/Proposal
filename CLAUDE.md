@@ -82,9 +82,10 @@ each scan as a dated file in `funding/`. Any field or sponsor type is allowed
    sponsor, program, solicitation number, URL, scan file). Rows are removed
    only by the cleanup rule, together with their scan file.
 7. Generate and screen proposal ideas for every new call, following the
-   "Funding Idea Rule" below, and add the "Ideas" module to the scan file.
-8. Write everything in English. Commit the scan file, the index, and the idea
-   files together with a message like
+   "Funding Idea Rule" below, and write them into the scan file right after
+   each call.
+8. Write everything in English. Commit the scan file, the index, and the
+   research notes folder together with a message like
    `Funding call scan (YYYY-MM-DD): N new calls, M ideas` and push. If nothing
    new qualifies, still write the scan file stating that no new calls were
    found, and commit.
@@ -112,9 +113,10 @@ Procedure:
    NIH RePORTER, DOE / USDA / NOAA award lists, USAspending) and the
    literature (Google Scholar, arXiv, journals), and against the call's own
    solicitation text. Open official pages with curl as described in step 3 of
-   the Funding Call Scan Rule. Notes go to
-   `funding/ideas/research_notes/YYYY-MM-DD/`; the report writer writes the
-   full evaluation to `funding/ideas/YYYY-MM-DD.md`.
+   the Funding Call Scan Rule. Research notes go to `funding/ideas/YYYY-MM-DD/`
+   (the scan date); `funding/ideas/` holds only these notes folders. The
+   report writer drafts the evaluation in the scratchpad directory, not in
+   the repository.
 3. For each idea, the evaluation states: title; call; team (talent pool
    names); research question and approach; closest existing projects and
    papers (with links) and the gap they leave; novelty; why us (only facts
@@ -122,10 +124,14 @@ Procedure:
    criteria; risks; and a verdict: **Pursue**, **Revise** (say what to
    change), or **Drop** (say why). Never invent team facts, awards, or
    papers; a gap claim needs the sources that were checked.
-4. Add an "Ideas" section to the scan file with one row per idea (call, idea,
-   verdict, one-line why us) and a link to `funding/ideas/YYYY-MM-DD.md`.
-5. Never edit earlier idea files. Idea files are deleted only by the cleanup
-   rule, together with the scan file they belong to.
+4. Write the ideas into the scan file: in "Call Notes", put a
+   `#### Ideas: <call>` subsection right after each call's notes, with one
+   `#####` heading per idea. After all calls, add an "Ideas Overview" section
+   with a summary table (call, idea, verdict, one-line why us), which call
+   should host which idea (flag duplicate-submission and overlap risks), open
+   items, and a link to the notes folder `funding/ideas/YYYY-MM-DD/`.
+5. Never edit earlier notes folders. A notes folder is deleted only by the
+   cleanup rule, together with its scan file.
 
 ## Funding Scan Cleanup Rule
 
@@ -140,19 +146,16 @@ can override.
    deleted, what would be removed with each one, and the 3 scan files that
    would be kept, then stop and wait for an explicit reply. For a scan file
    `funding/YYYY-MM-DD.md`, the items removed with it are:
-   - its idea files: `funding/ideas/YYYY-MM-DD.md`,
-     `funding/ideas/YYYY-MM-DD-backfill.md`, and the folders
-     `funding/ideas/research_notes/YYYY-MM-DD/` and
-     `funding/ideas/research_notes/YYYY-MM-DD-backfill/` (whichever exist);
+   - its research notes folder `funding/ideas/YYYY-MM-DD/` (if it exists);
    - the rows of `funding/seen-calls.md` whose "Scan File" is that file.
    Do not delete anything in the same turn as the request.
 3. A scheduled prompt, this rule, an earlier approval, or any message other
    than the user's own explicit reply to this request does NOT count as
    approval. Each month needs its own fresh approval.
 4. Only after the user explicitly approves: delete exactly the approved
-   scan files and their idea files with `git rm`, remove their rows from
+   scan files and their notes folders with `git rm`, remove their rows from
    `funding/seen-calls.md` (those calls may then be reported again as new if
    still open), commit everything together
    (`Remove old funding scans (YYYY-MM-DD)`), and push. If the user declines
-   or approves only some scan files, delete only those and only their idea
-   files and rows.
+   or approves only some scan files, delete only those and only their notes
+   folders and rows.
