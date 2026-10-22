@@ -58,6 +58,13 @@ each scan as a dated file in `funding/`. Any field or sponsor type is allowed
    - **Verified**: the sponsor's official page was opened and the details
      (title, deadline, amount, eligibility) were taken from it. Never
      invent or guess details; write "not stated" when a field is missing.
+   - **How to open official pages**: do not use WebFetch (it bypasses this
+     environment's proxy and fails). Download pages with
+     `curl -sSL -m 60 -A "Mozilla/5.0" -o <file> <url>` into the scratchpad
+     directory, extract HTML text with a small Python script that strips
+     tags, and extract PDF text with `pdftotext -layout`. If a page returns a
+     bot-check page or an error, state in the scan file that it could not be
+     verified.
 4. No repeats across scans: every call may appear in exactly one scan file.
    - Before writing, read `funding/seen-calls.md`, the permanent index of
      every call already reported. Drop any candidate that matches an entry
