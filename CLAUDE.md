@@ -80,10 +80,51 @@ each scan as a dated file in `funding/`. Any field or sponsor type is allowed
 6. Append every call in the new scan file to `funding/seen-calls.md` (date,
    sponsor, program, solicitation number, URL, scan file). Never remove rows
    from it; the cleanup rule does not touch it.
-7. Write everything in English. Commit the scan file and the index together
-   with a message like `Funding call scan (YYYY-MM-DD): N new calls` and push.
-   If nothing new qualifies, still write the scan file stating that no new
-   calls were found, and commit.
+7. Generate and screen proposal ideas for every new call, following the
+   "Funding Idea Rule" below, and add the "Ideas" module to the scan file.
+8. Write everything in English. Commit the scan file, the index, and the idea
+   files together with a message like
+   `Funding call scan (YYYY-MM-DD): N new calls, M ideas` and push. If nothing
+   new qualifies, still write the scan file stating that no new calls were
+   found, and commit.
+
+## Funding Idea Rule
+
+Every time new calls are added to the tracker, propose 3-5 ideas per new call
+and screen them with the `deep-research` skill. The goal of every idea:
+
+- **Fundable**: it answers the call's stated priorities and review criteria
+  and fits its award size and duration.
+- **Gap and novelty**: it differs from existing funded projects and published
+  work, and the difference is a real contribution, not a re-labeling.
+- **Why us**: it states why only this team can do it and why others have not:
+  concrete assets from the talent pool (funded grants, datasets, models,
+  ongoing papers, collaborators, site access, methods), not generic claims.
+
+Procedure:
+
+1. Draft 3-5 candidate ideas per call from `talent-pool/labs/*.md`. Each idea
+   must be led or co-led by Hao Lab and use people from the talent pool;
+   cross-lab ideas are welcome.
+2. Screen them with the `deep-research` skill: one research subagent per call
+   checks each idea against existing funded projects (NSF Award Search,
+   NIH RePORTER, DOE / USDA / NOAA award lists, USAspending) and the
+   literature (Google Scholar, arXiv, journals), and against the call's own
+   solicitation text. Open official pages with curl as described in step 3 of
+   the Funding Call Scan Rule. Notes go to
+   `funding/ideas/research_notes/YYYY-MM-DD/`; the report writer writes the
+   full evaluation to `funding/ideas/YYYY-MM-DD.md`.
+3. For each idea, the evaluation states: title; call; team (talent pool
+   names); research question and approach; closest existing projects and
+   papers (with links) and the gap they leave; novelty; why us (only facts
+   that appear in the talent pool files); fundability against the call's
+   criteria; risks; and a verdict: **Pursue**, **Revise** (say what to
+   change), or **Drop** (say why). Never invent team facts, awards, or
+   papers; a gap claim needs the sources that were checked.
+4. Add an "Ideas" section to the scan file with one row per idea (call, idea,
+   verdict, one-line why us) and a link to `funding/ideas/YYYY-MM-DD.md`.
+5. Idea files are permanent records: never edit or delete earlier ones, and
+   the cleanup rule does not touch `funding/ideas/`.
 
 ## Funding Scan Cleanup Rule
 
