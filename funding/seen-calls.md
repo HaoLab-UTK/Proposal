@@ -1,8 +1,8 @@
 # Seen Funding Calls
 
-Permanent index of every call already reported in a scan file. Used to keep
-scans free of repeats; rows are never removed, even after old scan files are
-cleaned up.
+Index of every call reported in a current scan file. Used to keep scans free
+of repeats. When the monthly cleanup deletes a scan file, its rows are removed
+here too, so a call that is still open may be reported again as new.
 
 | First Reported | Sponsor | Program | Solicitation / NOFO No. | URL | Scan File |
 |---|---|---|---|---|---|

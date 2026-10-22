@@ -69,8 +69,9 @@ each scan as a dated file in `funding/`. Any field or sponsor type is allowed
    - Before writing, read `funding/seen-calls.md`, the permanent index of
      every call already reported. Drop any candidate that matches an entry
      (same sponsor + program, same solicitation/NOFO number, or same URL),
-     even if its deadline or details changed, and even if the scan file that
-     first listed it has since been deleted.
+     even if its deadline or details changed. Rows for scan files removed by
+     the cleanup rule are deleted from the index, so a call that is still
+     open may be reported again as new after its scan file is cleaned up.
    - A new round of a recurring program (a new fiscal year, new solicitation
      number, or new NOFO) counts as a new call.
 5. Write a new scan file `funding/YYYY-MM-DD.md` (today's date) using the
@@ -78,8 +79,8 @@ each scan as a dated file in `funding/`. Any field or sponsor type is allowed
    calls, sorted by next deadline. Set `Last scanned:` to today's date. Never
    edit or delete earlier scan files.
 6. Append every call in the new scan file to `funding/seen-calls.md` (date,
-   sponsor, program, solicitation number, URL, scan file). Never remove rows
-   from it; the cleanup rule does not touch it.
+   sponsor, program, solicitation number, URL, scan file). Rows are removed
+   only by the cleanup rule, together with their scan file.
 7. Generate and screen proposal ideas for every new call, following the
    "Funding Idea Rule" below, and add the "Ideas" module to the scan file.
 8. Write everything in English. Commit the scan file, the index, and the idea
@@ -123,8 +124,8 @@ Procedure:
    papers; a gap claim needs the sources that were checked.
 4. Add an "Ideas" section to the scan file with one row per idea (call, idea,
    verdict, one-line why us) and a link to `funding/ideas/YYYY-MM-DD.md`.
-5. Idea files are permanent records: never edit or delete earlier ones, and
-   the cleanup rule does not touch `funding/ideas/`.
+5. Never edit earlier idea files. Idea files are deleted only by the cleanup
+   rule, together with the scan file they belong to.
 
 ## Funding Scan Cleanup Rule
 
@@ -135,13 +136,23 @@ can override.
 1. List scan files matching `funding/YYYY-MM-DD.md`, sorted by date. Keep the
    3 most recent; all older ones are deletion candidates. If there are 3 or
    fewer, report that and stop.
-2. Ask the user for approval first: list every file that would be deleted
-   and the 3 that would be kept, then stop and wait for an explicit reply.
+2. Ask the user for approval first: list every scan file that would be
+   deleted, what would be removed with each one, and the 3 scan files that
+   would be kept, then stop and wait for an explicit reply. For a scan file
+   `funding/YYYY-MM-DD.md`, the items removed with it are:
+   - its idea files: `funding/ideas/YYYY-MM-DD.md`,
+     `funding/ideas/YYYY-MM-DD-backfill.md`, and the folders
+     `funding/ideas/research_notes/YYYY-MM-DD/` and
+     `funding/ideas/research_notes/YYYY-MM-DD-backfill/` (whichever exist);
+   - the rows of `funding/seen-calls.md` whose "Scan File" is that file.
    Do not delete anything in the same turn as the request.
 3. A scheduled prompt, this rule, an earlier approval, or any message other
    than the user's own explicit reply to this request does NOT count as
    approval. Each month needs its own fresh approval.
 4. Only after the user explicitly approves: delete exactly the approved
-   files with `git rm`, commit (`Remove old funding scans (YYYY-MM-DD)`), and
-   push. If the user declines or approves only some files, delete only what
-   was approved.
+   scan files and their idea files with `git rm`, remove their rows from
+   `funding/seen-calls.md` (those calls may then be reported again as new if
+   still open), commit everything together
+   (`Remove old funding scans (YYYY-MM-DD)`), and push. If the user declines
+   or approves only some scan files, delete only those and only their idea
+   files and rows.
