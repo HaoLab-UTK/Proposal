@@ -12,3 +12,4 @@ here too, so a call that is still open may be reported again as new.
 | 2026-10-21 | NSF ENG / CBET | Energy, Water, and Resource Engineering (EWRE) | NSF 26-518 | https://www.nsf.gov/funding/opportunities/energy-water-resource-engineering | 2026-10-21.md |
 | 2026-10-21 | NSF ENG / CMMI | CMMI core programs | NSF 26-515 | https://www.nsf.gov/funding/opportunities/engineering-eng-civil-mechanical-manufacturing-innovation/nsf26-515/solicitation | 2026-10-21.md |
 | 2026-10-21 | NSF | Faculty Early Career Development Program (CAREER) | NSF 22-586 | https://www.nsf.gov/funding/opportunities/career-faculty-early-career-development-program | 2026-10-21.md |
+| 2026-10-25 | USDA NIFA | AFRI Foundational and Applied Science FY2026, A1712 Rapid Response to Weather Events Across Food and Agricultural Systems | USDA-NIFA-AFRI-011134 (A1712) | https://simpler.grants.gov/opportunity/10a7404c-3e2f-4355-9044-78c8bafc35cd | 2026-10-25.md |
