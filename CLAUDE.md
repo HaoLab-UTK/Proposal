@@ -74,10 +74,14 @@ each scan as a dated file in `funding/`. Any field or sponsor type is allowed
      open may be reported again as new after its scan file is cleaned up.
    - A new round of a recurring program (a new fiscal year, new solicitation
      number, or new NOFO) counts as a new call.
-5. Write a new scan file `funding/YYYY-MM-DD.md` (today's date) using the
-   same structure as `funding/2026-10-21.md`, containing only this scan's new
-   calls, sorted by next deadline. Set `Last scanned:` to today's date. Never
-   edit or delete earlier scan files.
+5. Write a new scan file `funding/YYYY-MM-DD.md` (today's date), containing
+   only this scan's new calls, sorted by next deadline. Use this structure:
+   title, `Last scanned:` line (today's date), a verification note, a
+   "New Calls" table (Next Deadline | Sponsor | Program | Award Size |
+   Hao Lab Fit (score) | Suggested Team | Link | Added), "Call Notes" with
+   one block per call, the ideas sections from the Funding Idea Rule, and
+   "Considered but not listed". The monthly summary in `funding/summaries/`
+   shows the content to expect. Never edit or delete earlier scan files.
 6. Append every call in the new scan file to `funding/seen-calls.md` (date,
    sponsor, program, solicitation number, URL, scan file). Rows are removed
    only by the cleanup rule, together with their scan file.
