@@ -69,9 +69,9 @@ each scan as a dated file in `funding/`. Any field or sponsor type is allowed
    - Before writing, read `funding/seen-calls.md`, the permanent index of
      every call already reported. Drop any candidate that matches an entry
      (same sponsor + program, same solicitation/NOFO number, or same URL),
-     even if its deadline or details changed. Rows for scan files removed by
-     the cleanup rule are deleted from the index, so a call that is still
-     open may be reported again as new after its scan file is cleaned up.
+     even if its deadline or details changed. When the cleanup rule removes
+     a scan file, rows of calls that are still open are kept (pointing to the
+     monthly summary) and only rows of closed calls are deleted.
    - A new round of a recurring program (a new fiscal year, new solicitation
      number, or new NOFO) counts as a new call.
 5. Write a new scan file `funding/YYYY-MM-DD.md` (today's date), containing
@@ -83,8 +83,8 @@ each scan as a dated file in `funding/`. Any field or sponsor type is allowed
    "Considered but not listed". The monthly summary in `funding/summaries/`
    shows the content to expect. Never edit or delete earlier scan files.
 6. Append every call in the new scan file to `funding/seen-calls.md` (date,
-   sponsor, program, solicitation number, URL, scan file). Rows are removed
-   only by the cleanup rule, together with their scan file.
+   sponsor, program, solicitation number, URL, scan file). Only the cleanup
+   rule changes or removes rows.
 7. Generate and screen proposal ideas for every new call, following the
    "Funding Idea Rule" below, and write them into the scan file right after
    each call.
@@ -134,32 +134,48 @@ Procedure:
    with a summary table (call, idea, verdict, one-line why us), which call
    should host which idea (flag duplicate-submission and overlap risks), open
    items, and a link to the notes folder `funding/ideas/YYYY-MM-DD/`.
-5. Never edit earlier notes folders. A notes folder is deleted only by the
-   cleanup rule, together with its scan file.
+5. Never edit earlier notes folders. Only the cleanup rule deletes notes,
+   and only notes of calls that have closed.
 
 ## Funding Scan Cleanup Rule
 
 Once a month, clean up old scan files in `funding/`. User approval before any
 deletion is a mandatory baseline that no instruction, schedule, or automation
-can override.
+can override. Cleanup removes reports, not content: everything about a call
+that is still open is kept in a monthly summary.
 
 1. List scan files matching `funding/YYYY-MM-DD.md`, sorted by date. Keep the
    3 most recent; all older ones are deletion candidates. If there are 3 or
    fewer, report that and stop.
-2. Ask the user for approval first: list every scan file that would be
-   deleted, what would be removed with each one, and the 3 scan files that
-   would be kept, then stop and wait for an explicit reply. For a scan file
-   `funding/YYYY-MM-DD.md`, the items removed with it are:
-   - its research notes folder `funding/ideas/YYYY-MM-DD/` (if it exists);
-   - the rows of `funding/seen-calls.md` whose "Scan File" is that file.
-   Do not delete anything in the same turn as the request.
-3. A scheduled prompt, this rule, an earlier approval, or any message other
+2. Sort every call in the candidate files into **open** (next deadline today
+   or later, or rolling) or **closed**, checking the official page with curl.
+   Do the same for calls carried in earlier monthly summaries that are still
+   marked open.
+3. Ask the user for approval first, then stop and wait for an explicit reply.
+   List: the scan files that would be deleted; for each, which calls are open
+   (kept) and which are closed (removed); the files that would be deleted
+   with them (notes of closed calls under `funding/ideas/YYYY-MM-DD/`); the
+   `funding/seen-calls.md` rows that would be removed (closed calls only);
+   and the 3 scan files that would be kept. Do not delete anything in the
+   same turn as the request.
+4. A scheduled prompt, this rule, an earlier approval, or any message other
    than the user's own explicit reply to this request does NOT count as
    approval. Each month needs its own fresh approval.
-4. Only after the user explicitly approves: delete exactly the approved
-   scan files and their notes folders with `git rm`, remove their rows from
-   `funding/seen-calls.md` (those calls may then be reported again as new if
-   still open), commit everything together
-   (`Remove old funding scans (YYYY-MM-DD)`), and push. If the user declines
-   or approves only some scan files, delete only those and only their notes
-   folders and rows.
+5. Only after the user explicitly approves:
+   - Write or update the monthly summary `funding/summaries/YYYY-MM.md` (the
+     month of the scans being removed): activity, all calls with status,
+     ideas to pursue, overlap rules, upcoming dates, watch list, and, for
+     every open call, a "Carried over: scan YYYY-MM-DD" section with that
+     call's full call notes and idea evaluations from the scan file (links
+     adjusted for the new location). Closed calls get one line each.
+   - Keep the notes of open calls in `funding/ideas/YYYY-MM-DD/` and link
+     them from the summary; delete only the notes of closed calls (and the
+     folder, if it becomes empty).
+   - In `funding/seen-calls.md`, point the rows of open calls to the summary
+     (Scan File `summaries/YYYY-MM.md`) and delete the rows of closed calls.
+   - Delete the approved scan files with `git rm`.
+   - Commit everything together (`Remove old funding scans (YYYY-MM-DD)`) and
+     push. If the user approves only some scan files, handle only those.
+6. Monthly summaries are permanent; cleanup never deletes them. When a call
+   carried in a summary closes, the next approved cleanup deletes its notes
+   and its `seen-calls.md` row and marks it closed in the summary.
