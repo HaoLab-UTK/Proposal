@@ -36,10 +36,15 @@ Never edit files under `talent-pool/resources/` as part of this sync.
 
 ## Tracker Website Rule
 
-`docs/` is the funding tracker website (GitHub Pages, served from `main` at
-`/docs`). `docs/index.html` is static; `docs/data.json` is generated from
-`funding/` and `talent-pool/collaborators.md` by `scripts/build_site.py`.
+`docs/` is the funding tracker website (GitHub Pages). `docs/index.html` is
+static; `docs/data.json` is generated from `funding/` and
+`talent-pool/collaborators.md` by `scripts/build_site.py`.
 
+- The website updates with every repository update: the workflow
+  `.github/workflows/pages.yml` runs `scripts/build_site.py` on every push
+  to `main` (including edits made on GitHub) and deploys `docs/` to Pages.
+  Every run that changes the repository must push to `main` so the website
+  follows; never leave such a change only in the local checkout.
 - Before every commit that changes `funding/`, `talent-pool/` or this file
   (daily sync, funding scan, cleanup, registry update), run
   `python3 scripts/build_site.py` and include `docs/data.json` in the same

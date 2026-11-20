@@ -1,6 +1,6 @@
 {
- "built": "2026-11-20T19:03:10+00:00",
- "commit": "0d5cc97",
+ "built": "2026-11-20T19:31:12+00:00",
+ "commit": "6ceb871",
  "calls": [
   {
    "deadline_text": "Pre-proposal 2027-01-07, 2:00 PM ET (full proposal by invitation 2027-03-11)",
@@ -1148,6 +1148,12 @@
   }
  ],
  "log": [
+  {
+   "sha": "903d5ce",
+   "date": "2026-11-20T19:03:10+00:00",
+   "subject": "Add funding tracker website (GitHub Pages from /docs)",
+   "kind": "update"
+  },
   {
    "sha": "0d5cc97",
    "date": "2026-11-20T00:19:00+00:00",
