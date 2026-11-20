@@ -27,8 +27,9 @@ be kept in sync. Run this procedure once per day:
    facts that are not in the resource files. Write everything in English.
 4. Record the sync: `python scripts/resources_sync.py mark`
 5. Commit the Markdown updates together with `talent-pool/.resources-sync.json`
-   in one commit, e.g. `Sync talent pool summaries with resources (YYYY-MM-DD)`,
-   and push.
+   (and `talent-pool/collaborators.md` if new co-authors or co-PIs were added
+   to it) in one commit, e.g. `Sync talent pool summaries with resources
+   (YYYY-MM-DD)`, and push.
 
 Never edit files under `talent-pool/resources/` as part of this sync.
 
@@ -105,8 +106,9 @@ each scan as a dated file in `funding/`. Any field or sponsor type is allowed
 7. Generate and screen proposal ideas for every new call, following the
    "Funding Idea Rule" below, and write them into the scan file right after
    each call.
-8. Write everything in English. Commit the scan file, the index, and the
-   research notes folder together with a message like
+8. Write everything in English. Commit the scan file, the index, the
+   research notes folder, and any change to `talent-pool/collaborators.md`
+   together with a message like
    `Funding call scan (YYYY-MM-DD): N new calls, M ideas` and push. If nothing
    new qualifies, still write the scan file stating that no new calls were
    found, and commit.
@@ -210,7 +212,9 @@ scans can reuse them without the registry becoming fixed.
    registry).
 6. Add every recommended person or organization to
    `talent-pool/collaborators.md` with status "Recommended", the calls they
-   were recommended for, and the date. Only the user changes a status to
+   were recommended for, and the date. Every change to the registry is committed
+   and pushed to GitHub (`git push origin main`) in the same run that makes
+   it; a registry change must never stay only in the local checkout. Only the user changes a status to
    "Contacted" or "Confirmed". Confirmed collaborators may be used in "why
    us" claims only for facts in their registry entry that came from public
    sources.
