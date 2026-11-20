@@ -43,7 +43,24 @@ each scan as a dated file in `funding/`. Any field or sponsor type is allowed
    research directions, methods, and expertise across all labs.
 2. Search the web for current calls that match those directions. Use several
    queries per Hao Lab research direction and expertise keyword, plus
-   cross-lab combinations (Hao Lab with another lab in the pool).
+   cross-lab combinations (Hao Lab with another lab in the pool). Do not stop
+   at Grants.gov and agency sites; every scan must also cover:
+   - **Sub-award programs of funded centers and networks**: small, seed, or
+     pilot grant programs run by NSF Science and Technology Centers,
+     Engineering Research Centers, AI Institutes, and other NSF/DOE/NOAA/USGS
+     funded centers (for example CLaSH, CUAHSI, CSDMS, NIDIS/RISA teams,
+     Climate Adaptation Science Centers, DOE national lab programs). These
+     never appear on Grants.gov.
+   - **Societies, consortia, foundations, industry, and state programs**
+     (for example AGU, GSA, ASCE/EWRI, AWRA, INFORMS, EPRI, TVA, state
+     agencies, university internal and seed programs).
+   - **Adjacent vocabulary**: translate each direction into the terms other
+     communities use (e.g., flash drought, flood, wildfire, landslide ->
+     "land surface hazards", "hazard cascades", "compound hazards"; data
+     centers -> "large loads", "critical infrastructure", "AI
+     infrastructure") and search those terms too, combined with "small grant
+     program", "seed grant", "pilot grant", "RFP", and "call for proposals".
+   - The lessons in "Search lessons" below.
 3. Keep a call only if ALL of these hold:
    - **Strong Hao Lab relevance**: the call's core topic directly matches at
      least one Hao Lab research direction (`labs/hao-lab.md` section 2) or
@@ -96,8 +113,8 @@ each scan as a dated file in `funding/`. Any field or sponsor type is allowed
 
 ## Funding Idea Rule
 
-Every time new calls are added to the tracker, propose 3-5 ideas per new call
-and screen them with the `deep-research` skill. The goal of every idea:
+Every time new calls are added to the tracker, propose ideas for each new call
+(see step 2 for how many) and screen them with the `deep-research` skill. The goal of every idea:
 
 - **Fundable**: it answers the call's stated priorities and review criteria
   and fits its award size and duration.
@@ -109,10 +126,21 @@ and screen them with the `deep-research` skill. The goal of every idea:
 
 Procedure:
 
-1. Draft 3-5 candidate ideas per call from `talent-pool/labs/*.md`. Each idea
-   must be led or co-led by Hao Lab and use people from the talent pool;
-   cross-lab ideas are welcome.
-2. Screen them with the `deep-research` skill: one research subagent per call
+1. Study past winners first: find the projects the same program funded in
+   earlier rounds (award lists, abstracts, project pages, NSF Award Search),
+   and summarize in a "Past winners" paragraph what they have in common
+   (topics, scale, methods, team makeup, partners, framing, budget) and why
+   they were likely selected. Use those patterns to shape the ideas; if no
+   past awards can be found, say so.
+2. Draft a wide set of candidate ideas per call from `talent-pool/labs/*.md`
+   and the collaborator registry: at least 8 short ideas (2-4 lines each)
+   spanning different perspectives — methods (observation, modeling, AI,
+   optimization, decision support), scales (site to national), sectors and
+   users, disciplines (including social science, policy, education), and
+   cross-lab or new-partner teams. Each idea must be led or co-led by Hao
+   Lab. Then screen all of them briefly and evaluate the 2-4 strongest in
+   full.
+3. Screen them with the `deep-research` skill: one research subagent per call
    checks each idea against existing funded projects (NSF Award Search,
    NIH RePORTER, DOE / USDA / NOAA award lists, USAspending) and the
    literature (Google Scholar, arXiv, journals), and against the call's own
@@ -121,21 +149,80 @@ Procedure:
    (the scan date); `funding/ideas/` holds only these notes folders. The
    report writer drafts the evaluation in the scratchpad directory, not in
    the repository.
-3. For each idea, the evaluation states: title; call; team (talent pool
+4. For each fully evaluated idea, the evaluation states: title; call; team (talent pool
    names); research question and approach; closest existing projects and
    papers (with links) and the gap they leave; novelty; why us (only facts
    that appear in the talent pool files); fundability against the call's
    criteria; risks; and a verdict: **Pursue**, **Revise** (say what to
    change), or **Drop** (say why). Never invent team facts, awards, or
    papers; a gap claim needs the sources that were checked.
-4. Write the ideas into the scan file: in "Call Notes", put a
+5. Write the ideas into the scan file: in "Call Notes", put a
    `#### Ideas: <call>` subsection right after each call's notes, with one
    `#####` heading per idea. After all calls, add an "Ideas Overview" section
    with a summary table (call, idea, verdict, one-line why us), which call
    should host which idea (flag duplicate-submission and overlap risks), open
    items, and a link to the notes folder `funding/ideas/YYYY-MM-DD/`.
-5. Never edit earlier notes folders. Only the cleanup rule deletes notes,
+   Under each call, list the short ideas in a table (idea, angle, verdict)
+   and give the fully evaluated ideas their own `#####` headings; add the
+   "Past winners" paragraph and the "Recommended collaborators" section
+   from the Collaborator Rule.
+6. Never edit earlier notes folders. Only the cleanup rule deletes notes,
    and only notes of calls that have closed.
+
+## Collaborator Rule
+
+For every new call, recommend co-PIs and partner organizations that would
+strengthen the proposals, and keep them in a collaborator registry so later
+scans can reuse them without the registry becoming fixed.
+
+1. Start from the collaborator registry `talent-pool/collaborators.md`, then
+   search for new people and organizations. Base the search on the kinds of
+   partners the PI already works with (see `labs/hao-lab.md` Collaborators
+   and the PI CV: national lab Earth system modelers, UT optimization and
+   decision-support faculty, hydrology and remote sensing groups) and extend
+   to the expertise each idea is missing.
+2. More than half of the people recommended for each call must be new (not
+   already in the registry). If not enough suitable new people can be found,
+   say so explicitly and explain why; only then fill the remaining slots from
+   the registry.
+3. Rank candidates with these weights, and show the reasons:
+   - **High**: has won awards in the same or a similar program (link the
+     award), or fills a gap the call requires (e.g., an installation,
+     extension, utility, or social-science partner).
+   - **Medium-high**: background different from the Hao Lab team — other
+     disciplines, institution types (minority-serving, EPSCoR, primarily
+     undergraduate, national lab, agency, industry), career stage, region,
+     or country. Gender diversity may count only when a person states it
+     publicly themselves (e.g., pronouns on their own profile); never infer
+     gender from names or photos.
+   - **Medium**: complementary methods, nearby location or shared field
+     sites, existing ties to the call's sponsor or center.
+4. Use only public, professional information (name, title, affiliation,
+   public profile page, research areas, funded awards, publications). No
+   email addresses, phone numbers, or other personal details. Never claim a
+   person has agreed to anything.
+5. In the scan file, add a "Recommended collaborators" section under each
+   call: a table (name, affiliation, role in the proposal such as co-PI or
+   partner, expertise, evidence with links, why recommended, new or from
+   registry).
+6. Add every recommended person or organization to
+   `talent-pool/collaborators.md` with status "Recommended", the calls they
+   were recommended for, and the date. Only the user changes a status to
+   "Contacted" or "Confirmed". Confirmed collaborators may be used in "why
+   us" claims only for facts in their registry entry that came from public
+   sources.
+
+## Search lessons
+
+Missed calls the user pointed out, and what to do so similar calls are found:
+
+- 2026-11-19 — CLaSH Small Grant Program 2026-27 (NSF Center for Land
+  Surface Hazards; seed grants of $20K-$40K; due 2027-01-15). Missed because
+  scans searched Grants.gov and agency pages, and a center's own sub-award
+  program never appears there; and because the program speaks of "land
+  surface hazard cascades" (landslides, floods, fire), not the lab's terms
+  (flash drought, heatwave, wildfire). Fix: search center and network seed
+  programs and adjacent vocabulary every scan (step 2 above).
 
 ## Funding Scan Cleanup Rule
 
