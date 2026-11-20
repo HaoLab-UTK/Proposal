@@ -175,7 +175,10 @@ For every new call, recommend co-PIs and partner organizations that would
 strengthen the proposals, and keep them in a collaborator registry so later
 scans can reuse them without the registry becoming fixed.
 
-1. Start from the collaborator registry `talent-pool/collaborators.md`, then
+1. Start from the collaborator registry `talent-pool/collaborators.md` (it
+   holds the PI's past collaborators, status "Past collaborator", and people
+   recommended in earlier scans; when the daily resource sync finds new
+   co-authors or co-PIs in the resource files, add them there too), then
    search for new people and organizations. Base the search on the kinds of
    partners the PI already works with (see `labs/hao-lab.md` Collaborators
    and the PI CV: national lab Earth system modelers, UT optimization and
