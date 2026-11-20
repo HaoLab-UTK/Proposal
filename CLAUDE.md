@@ -26,12 +26,31 @@ be kept in sync. Run this procedure once per day:
    content only, no personal details (contact info, GPA, grades). Do not invent
    facts that are not in the resource files. Write everything in English.
 4. Record the sync: `python scripts/resources_sync.py mark`
-5. Commit the Markdown updates together with `talent-pool/.resources-sync.json`
+5. Run `python3 scripts/build_site.py`, then commit the Markdown updates
+   together with `docs/data.json`, `talent-pool/.resources-sync.json`
    (and `talent-pool/collaborators.md` if new co-authors or co-PIs were added
    to it) in one commit, e.g. `Sync talent pool summaries with resources
    (YYYY-MM-DD)`, and push.
 
 Never edit files under `talent-pool/resources/` as part of this sync.
+
+## Tracker Website Rule
+
+`docs/` is the funding tracker website (GitHub Pages, served from `main` at
+`/docs`). `docs/index.html` is static; `docs/data.json` is generated from
+`funding/` and `talent-pool/collaborators.md` by `scripts/build_site.py`.
+
+- Before every commit that changes `funding/`, `talent-pool/` or this file
+  (daily sync, funding scan, cleanup, registry update), run
+  `python3 scripts/build_site.py` and include `docs/data.json` in the same
+  commit. Never edit `docs/data.json` by hand.
+- The website is public. Put nothing in the tracked Markdown files that should
+  not be public (the content policy in `talent-pool/README.md` already
+  excludes personal details).
+- If the scan file layout changes (table headers such as "Next Deadline |
+  Sponsor | Program | Award Size", "Call | Idea | Verdict", "# | Idea | ... |
+  Verdict", or the registry "Name" tables), update `scripts/build_site.py` so
+  the website keeps parsing them.
 
 ## Funding Call Scan Rule
 
@@ -106,7 +125,8 @@ each scan as a dated file in `funding/`. Any field or sponsor type is allowed
 7. Generate and screen proposal ideas for every new call, following the
    "Funding Idea Rule" below, and write them into the scan file right after
    each call.
-8. Write everything in English. Commit the scan file, the index, the
+8. Write everything in English. Run `python3 scripts/build_site.py`. Commit
+   `docs/data.json`, the scan file, the index, the
    research notes folder, and any change to `talent-pool/collaborators.md`
    together with a message like
    `Funding call scan (YYYY-MM-DD): N new calls, M ideas` and push. If nothing
@@ -268,6 +288,7 @@ that is still open is kept in a monthly summary.
    - In `funding/seen-calls.md`, point the rows of open calls to the summary
      (Scan File `summaries/YYYY-MM.md`) and delete the rows of closed calls.
    - Delete the approved scan files with `git rm`.
+   - Run `python3 scripts/build_site.py`.
    - Commit everything together (`Remove old funding scans (YYYY-MM-DD)`) and
      push. If the user approves only some scan files, handle only those.
 6. Monthly summaries are permanent; cleanup never deletes them. When a call

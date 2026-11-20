@@ -1,0 +1,478 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hao Lab Funding Tracker</title>
+<meta name="description" content="Funding calls, proposal ideas, collaborators and scan history for Hao Lab, built from the Proposal repository.">
+<style>
+:root {
+  --bg: #f7f7f5; --surface: #ffffff; --surface-2: #f0f0ec; --border: #e2e1dc;
+  --text: #1d1d1b; --muted: #6b6a65; --accent: #2f5d8a; --accent-soft: #e3ecf5;
+  --ok: #2e7d4f; --ok-soft: #e2f2e8; --warn: #a76100; --warn-soft: #fbeedb;
+  --bad: #a33a32; --bad-soft: #f8e3e1; --info: #5b4b9a; --info-soft: #ebe7f6;
+  --shadow: 0 1px 2px rgba(0,0,0,.05), 0 2px 8px rgba(0,0,0,.04);
+  --radius: 10px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #161615; --surface: #1f1f1d; --surface-2: #2a2a27; --border: #363632;
+    --text: #ecebe6; --muted: #a09f98; --accent: #7fb0e0; --accent-soft: #23344a;
+    --ok: #6cc996; --ok-soft: #1e3427; --warn: #e3a54d; --warn-soft: #3a2c17;
+    --bad: #e98a82; --bad-soft: #3d2221; --info: #b3a6ec; --info-soft: #2c2645;
+    --shadow: none; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #161615; --surface: #1f1f1d; --surface-2: #2a2a27; --border: #363632;
+  --text: #ecebe6; --muted: #a09f98; --accent: #7fb0e0; --accent-soft: #23344a;
+  --ok: #6cc996; --ok-soft: #1e3427; --warn: #e3a54d; --warn-soft: #3a2c17;
+  --bad: #e98a82; --bad-soft: #3d2221; --info: #b3a6ec; --info-soft: #2c2645;
+  --shadow: none; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--bg); color: var(--text);
+  font: 15px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+a { color: var(--accent); }
+.wrap { max-width: 1160px; margin: 0 auto; padding: 24px 16px 64px; }
+header.top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+h1 { font-size: 24px; margin: 0 0 4px; letter-spacing: -.01em; }
+.sub { color: var(--muted); font-size: 13px; }
+.theme-btn { border: 1px solid var(--border); background: var(--surface); color: var(--text); border-radius: 8px; padding: 6px 10px; cursor: pointer; font: inherit; font-size: 13px; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin: 20px 0; }
+.stat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; box-shadow: var(--shadow); }
+.stat .label { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
+.stat .value { font-size: 26px; font-weight: 650; margin-top: 2px; }
+.stat .note { color: var(--muted); font-size: 12px; margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+nav.tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--border); margin-bottom: 16px; overflow-x: auto; }
+nav.tabs button { border: 0; background: none; color: var(--muted); font: inherit; padding: 10px 14px; cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; }
+nav.tabs button[aria-selected="true"] { color: var(--text); border-bottom-color: var(--accent); font-weight: 600; }
+.toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 14px; }
+.toolbar input[type="search"], .toolbar select {
+  background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: 8px; padding: 7px 10px; font: inherit; font-size: 14px;
+}
+.toolbar input[type="search"] { flex: 1 1 220px; min-width: 0; }
+.chip { border: 1px solid var(--border); background: var(--surface); color: var(--text); border-radius: 999px; padding: 5px 11px; font-size: 13px; cursor: pointer; }
+.chip[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); font-weight: 600; }
+.count { color: var(--muted); font-size: 13px; margin-left: auto; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 14px; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.card h3 { margin: 0; font-size: 15.5px; line-height: 1.35; }
+.card .sponsor { color: var(--muted); font-size: 13px; }
+.card dl { margin: 0; display: grid; grid-template-columns: max-content 1fr; gap: 4px 10px; font-size: 13.5px; }
+.card dt { color: var(--muted); }
+.card dd { margin: 0; overflow-wrap: anywhere; }
+.card .actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: auto; padding-top: 6px; }
+.btn { border: 1px solid var(--border); background: var(--surface-2); color: var(--text); border-radius: 8px; padding: 6px 10px; font: inherit; font-size: 13px; cursor: pointer; text-decoration: none; }
+.btn:hover { border-color: var(--accent); }
+.badge { display: inline-block; border-radius: 999px; padding: 2px 9px; font-size: 12px; font-weight: 600; white-space: nowrap; }
+.b-open { background: var(--ok-soft); color: var(--ok); }
+.b-soon { background: var(--warn-soft); color: var(--warn); }
+.b-closed { background: var(--surface-2); color: var(--muted); }
+.b-rolling { background: var(--info-soft); color: var(--info); }
+.b-pursue { background: var(--ok-soft); color: var(--ok); }
+.b-revise { background: var(--warn-soft); color: var(--warn); }
+.b-drop { background: var(--bad-soft); color: var(--bad); }
+.b-past { background: var(--accent-soft); color: var(--accent); }
+.b-rec { background: var(--info-soft); color: var(--info); }
+.row-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+.countdown { font-size: 13px; color: var(--muted); }
+.table-wrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); }
+table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+th { background: var(--surface-2); font-weight: 600; position: sticky; top: 0; white-space: nowrap; }
+tr:last-child td { border-bottom: 0; }
+td.idea { min-width: 280px; }
+td.small { color: var(--muted); font-size: 12.5px; }
+.timeline { list-style: none; margin: 0; padding: 0; border-left: 2px solid var(--border); }
+.timeline li { position: relative; padding: 4px 0 14px 18px; }
+.timeline li::before { content: ""; position: absolute; left: -7px; top: 9px; width: 12px; height: 12px; border-radius: 50%; background: var(--surface); border: 2px solid var(--muted); }
+.timeline li.k-scan::before { border-color: var(--accent); background: var(--accent-soft); }
+.timeline li.k-sync::before { border-color: var(--ok); background: var(--ok-soft); }
+.timeline li.k-cleanup::before { border-color: var(--bad); background: var(--bad-soft); }
+.timeline .when { color: var(--muted); font-size: 12.5px; }
+.timeline code { font-size: 12px; color: var(--muted); }
+.empty { color: var(--muted); padding: 24px; text-align: center; }
+.note-box { background: var(--surface); border: 1px dashed var(--border); border-radius: var(--radius); padding: 10px 14px; color: var(--muted); font-size: 13px; margin-top: 14px; }
+dialog { border: 1px solid var(--border); border-radius: 12px; padding: 0; width: min(980px, calc(100vw - 24px)); max-height: calc(100vh - 32px); background: var(--surface); color: var(--text); }
+dialog::backdrop { background: rgba(0,0,0,.45); }
+.dlg-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 12px 16px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--surface); }
+.dlg-body { padding: 8px 22px 24px; overflow-wrap: anywhere; }
+.dlg-body table { display: block; overflow-x: auto; }
+.dlg-body th { position: static; }
+.dlg-body pre, .dlg-body code { background: var(--surface-2); border-radius: 4px; }
+.dlg-body code { padding: 1px 4px; }
+.md h1 { font-size: 21px; } .md h2 { font-size: 18px; margin-top: 28px; } .md h3 { font-size: 16px; margin-top: 22px; } .md h4, .md h5 { font-size: 15px; margin-top: 18px; }
+.hidden { display: none !important; }
+@media (max-width: 560px) {
+  .cards { grid-template-columns: 1fr; }
+  h1 { font-size: 21px; }
+  .stat .value { font-size: 22px; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>Hao Lab Funding Tracker</h1>
+      <div class="sub" id="built">Loading…</div>
+    </div>
+    <button class="theme-btn" id="themeBtn" type="button">Theme: auto</button>
+  </header>
+
+  <section class="stats" id="stats"></section>
+
+  <nav class="tabs" role="tablist">
+    <button role="tab" data-tab="calls" aria-selected="true">Calls</button>
+    <button role="tab" data-tab="ideas" aria-selected="false">Ideas</button>
+    <button role="tab" data-tab="collab" aria-selected="false">Collaborators</button>
+    <button role="tab" data-tab="log" aria-selected="false">Log</button>
+    <button role="tab" data-tab="reports" aria-selected="false">Reports</button>
+  </nav>
+
+  <section data-panel="calls">
+    <div class="toolbar">
+      <input type="search" id="callSearch" placeholder="Search sponsor, program, team…">
+      <button class="chip" data-cstatus="open" aria-pressed="true">Open</button>
+      <button class="chip" data-cstatus="closed" aria-pressed="false">Closed</button>
+      <span class="count" id="callCount"></span>
+    </div>
+    <div class="cards" id="callCards"></div>
+  </section>
+
+  <section data-panel="ideas" class="hidden">
+    <div class="toolbar">
+      <input type="search" id="ideaSearch" placeholder="Search ideas, calls, reasons…">
+      <button class="chip" data-verdict="pursue" aria-pressed="true">Pursue</button>
+      <button class="chip" data-verdict="revise" aria-pressed="true">Revise</button>
+      <button class="chip" data-verdict="drop" aria-pressed="false">Drop</button>
+      <select id="ideaCall"><option value="">All calls</option></select>
+      <span class="count" id="ideaCount"></span>
+    </div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Verdict</th><th>Idea</th><th>Call</th><th>Why us / angle</th><th>Source</th></tr></thead>
+      <tbody id="ideaRows"></tbody>
+    </table></div>
+  </section>
+
+  <section data-panel="collab" class="hidden">
+    <div class="toolbar">
+      <input type="search" id="collabSearch" placeholder="Search name, affiliation, expertise…">
+      <button class="chip" data-cs="Past collaborator" aria-pressed="true">Past collaborators</button>
+      <button class="chip" data-cs="Recommended" aria-pressed="true">Recommended</button>
+      <button class="chip" data-cs="Contacted" aria-pressed="true">Contacted</button>
+      <button class="chip" data-cs="Confirmed" aria-pressed="true">Confirmed</button>
+      <span class="count" id="collabCount"></span>
+    </div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Status</th><th>Name</th><th>Affiliation</th><th>Expertise</th><th>Recommended for</th><th>Evidence</th></tr></thead>
+      <tbody id="collabRows"></tbody>
+    </table></div>
+    <div class="note-box">Public professional information only. "Recommended" means suggested in a scan; nobody listed has agreed to join a proposal unless marked "Confirmed".</div>
+  </section>
+
+  <section data-panel="log" class="hidden">
+    <div class="toolbar">
+      <button class="chip" data-lk="scan" aria-pressed="true">Funding scans</button>
+      <button class="chip" data-lk="sync" aria-pressed="true">Talent pool syncs</button>
+      <button class="chip" data-lk="cleanup" aria-pressed="true">Cleanups</button>
+      <button class="chip" data-lk="update" aria-pressed="true">Other updates</button>
+      <span class="count" id="logCount"></span>
+    </div>
+    <ul class="timeline" id="logList"></ul>
+    <div class="note-box">Built from the repository's commit history. A daily talent pool sync that finds no changes makes no commit, so it does not appear here.</div>
+  </section>
+
+  <section data-panel="reports" class="hidden">
+    <div class="cards" id="reportCards"></div>
+  </section>
+</div>
+
+<dialog id="dlg">
+  <div class="dlg-head">
+    <strong id="dlgTitle"></strong>
+    <div style="display:flex;gap:8px">
+      <a class="btn" id="dlgGh" target="_blank" rel="noopener">Open on GitHub</a>
+      <button class="btn" id="dlgClose" type="button">Close</button>
+    </div>
+  </div>
+  <div class="dlg-body md" id="dlgBody"></div>
+</dialog>
+
+<script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js"></script>
+<script>
+const REPO = "https://github.com/HaoLab-UTK/Proposal/blob/main/";
+const SOON_DAYS = 21;
+let DATA = null;
+
+// ---------- helpers ----------
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+function inline(md, base) {
+  let s = esc(md);
+  s = s.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (_, t, u) => `<a href="${esc(resolveHref(u, base))}" target="_blank" rel="noopener">${t}</a>`);
+  s = s.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+  s = s.replace(/(^|[^*])\*([^*\s][^*]*)\*/g, "$1<em>$2</em>");
+  s = s.replace(/`([^`]+)`/g, "<code>$1</code>");
+  return s;
+}
+function resolveHref(href, base) {
+  if (/^(https?:|mailto:|#)/.test(href)) return href;
+  const parts = (base || "").split("/").slice(0, -1);
+  for (const seg of href.split("/")) {
+    if (seg === "..") parts.pop(); else if (seg && seg !== ".") parts.push(seg);
+  }
+  return REPO + parts.join("/");
+}
+function today() { const d = new Date(); d.setHours(0, 0, 0, 0); return d; }
+function parseDate(s) { const [y, m, d] = s.split("-").map(Number); return new Date(y, m - 1, d); }
+function daysUntil(s) { return Math.round((parseDate(s) - today()) / 86400000); }
+
+function callStatus(c) {
+  const future = c.dates.filter(d => daysUntil(d) >= 0);
+  const next = future[0] || null;
+  if (next) {
+    const n = daysUntil(next);
+    return { open: true, next, days: n, label: n <= SOON_DAYS ? "Closing soon" : "Open", cls: n <= SOON_DAYS ? "b-soon" : "b-open" };
+  }
+  if (c.rolling) return { open: true, next: null, days: null, label: "Rolling", cls: "b-rolling" };
+  return { open: false, next: null, days: null, label: "Closed", cls: "b-closed" };
+}
+function verdictKey(v) {
+  const s = v.toLowerCase();
+  if (s.startsWith("pursue")) return "pursue";
+  if (s.startsWith("drop")) return "drop";
+  return "revise";
+}
+function pressed(sel) { return $$(sel).filter(b => b.getAttribute("aria-pressed") === "true"); }
+function toggle(btn, fn) { btn.addEventListener("click", () => { btn.setAttribute("aria-pressed", btn.getAttribute("aria-pressed") === "true" ? "false" : "true"); fn(); }); }
+
+// ---------- theme ----------
+const THEMES = ["auto", "light", "dark"];
+function applyTheme(t) {
+  if (t === "auto") document.documentElement.removeAttribute("data-theme");
+  else document.documentElement.setAttribute("data-theme", t);
+  $("#themeBtn").textContent = "Theme: " + t;
+}
+let theme = "auto";
+try { theme = localStorage.getItem("tracker-theme") || "auto"; } catch (e) {}
+applyTheme(theme);
+$("#themeBtn").addEventListener("click", () => {
+  theme = THEMES[(THEMES.indexOf(theme) + 1) % THEMES.length];
+  applyTheme(theme);
+  try { localStorage.setItem("tracker-theme", theme); } catch (e) {}
+});
+
+// ---------- tabs ----------
+$$("nav.tabs button").forEach(b => b.addEventListener("click", () => {
+  $$("nav.tabs button").forEach(x => x.setAttribute("aria-selected", x === b ? "true" : "false"));
+  $$("[data-panel]").forEach(p => p.classList.toggle("hidden", p.dataset.panel !== b.dataset.tab));
+  try { history.replaceState(null, "", "#" + b.dataset.tab); } catch (e) {}
+}));
+function openTabFromHash() {
+  const t = location.hash.slice(1);
+  const b = $(`nav.tabs button[data-tab="${t}"]`);
+  if (b) b.click();
+}
+
+// ---------- dialog ----------
+function openDoc(file, anchorText) {
+  const doc = DATA.docs.find(d => d.file === file);
+  if (!doc) return;
+  $("#dlgTitle").textContent = doc.title;
+  $("#dlgGh").href = REPO + doc.file;
+  const html = DOMPurify.sanitize(marked.parse(doc.markdown));
+  const body = $("#dlgBody");
+  body.innerHTML = html;
+  $$("a", body).forEach(a => {
+    const h = a.getAttribute("href") || "";
+    a.href = resolveHref(h, doc.file);
+    a.target = "_blank"; a.rel = "noopener";
+  });
+  $("#dlg").showModal();
+  body.scrollTop = 0; $("#dlg").scrollTop = 0;
+  if (anchorText) {
+    const target = $$("h1,h2,h3,h4,h5,strong", body).find(h => h.textContent.trim().startsWith(anchorText.slice(0, 40)));
+    if (target) setTimeout(() => target.scrollIntoView({ block: "start" }), 30);
+  }
+}
+$("#dlgClose").addEventListener("click", () => $("#dlg").close());
+$("#dlg").addEventListener("click", e => { if (e.target === $("#dlg")) $("#dlg").close(); });
+
+// ---------- stats ----------
+function renderStats() {
+  const calls = DATA.calls.map(c => ({ c, s: callStatus(c) }));
+  const open = calls.filter(x => x.s.open);
+  const dated = open.filter(x => x.s.next).sort((a, b) => a.s.days - b.s.days);
+  const nextUp = dated[0];
+  const pursue = DATA.ideas.filter(i => verdictKey(i.verdict) === "pursue" && !i.short);
+  const rec = DATA.collaborators.filter(p => p.status === "Recommended").length;
+  const past = DATA.collaborators.filter(p => p.status === "Past collaborator").length;
+  const lastScan = DATA.log.find(l => l.kind === "scan");
+  const stats = [
+    ["Open calls", open.length, `${calls.length} tracked in total`],
+    ["Next deadline", nextUp ? (nextUp.s.days === 0 ? "Today" : `${nextUp.s.days} d`) : "—", nextUp ? `${nextUp.s.next} · ${nextUp.c.program}` : "No dated deadline"],
+    ["Ideas to pursue", pursue.length, `${DATA.ideas.filter(i => !i.short).length} screened in verdict tables`],
+    ["Collaborators", past + rec, `${past} past · ${rec} recommended`],
+    ["Last scan", lastScan ? lastScan.date.slice(0, 10) : "—", lastScan ? lastScan.subject.replace(/^Funding call scan \([^)]*\):\s*/, "") : ""],
+  ];
+  $("#stats").innerHTML = stats.map(([l, v, n]) => `<div class="stat"><div class="label">${esc(l)}</div><div class="value">${esc(v)}</div><div class="note" title="${esc(n)}">${esc(n)}</div></div>`).join("");
+}
+
+// ---------- calls ----------
+function renderCalls() {
+  const q = $("#callSearch").value.trim().toLowerCase();
+  const want = pressed("[data-cstatus]").map(b => b.dataset.cstatus);
+  const items = DATA.calls.map(c => ({ c, s: callStatus(c) }))
+    .filter(({ c, s }) => want.includes(s.open ? "open" : "closed"))
+    .filter(({ c }) => !q || [c.sponsor, c.program, c.team, c.fit, c.number].join(" ").toLowerCase().includes(q))
+    .sort((a, b) => {
+      const ka = a.s.days ?? (a.s.open ? 9999 : 99999), kb = b.s.days ?? (b.s.open ? 9999 : 99999);
+      return ka - kb;
+    });
+  $("#callCount").textContent = `${items.length} call${items.length === 1 ? "" : "s"}`;
+  $("#callCards").innerHTML = items.length ? items.map(({ c, s }, i) => `
+    <article class="card">
+      <div class="row-top">
+        <span class="badge ${s.cls}">${esc(s.label)}</span>
+        <span class="countdown">${s.next ? (s.days === 0 ? "due today" : `${s.days} days · ${esc(s.next)}`) : (s.open ? "no fixed date" : "")}</span>
+      </div>
+      <h3>${inline(c.program)}</h3>
+      <div class="sponsor">${inline(c.sponsor)}${c.number ? ` · ${esc(c.number)}` : ""}</div>
+      <dl>
+        <dt>Deadline</dt><dd>${inline(c.deadline_text)}</dd>
+        <dt>Award</dt><dd>${inline(c.award)}</dd>
+        <dt>Fit</dt><dd>${inline(c.fit)}</dd>
+        <dt>Team</dt><dd>${inline(c.team)}</dd>
+      </dl>
+      <div class="actions">
+        <button class="btn" data-doc="${esc(c.source)}" data-anchor="${esc(c.section)}">Report &amp; ideas</button>
+        <button class="btn" data-ideas="${i}">Ideas for this call</button>
+        ${c.link ? `<a class="btn" href="${esc(c.link)}" target="_blank" rel="noopener">Official page</a>` : ""}
+      </div>
+    </article>`).join("") : `<div class="empty">No calls match.</div>`;
+  $$("#callCards [data-doc]").forEach(b => b.addEventListener("click", () => openDoc(b.dataset.doc, b.dataset.anchor)));
+  $$("#callCards [data-ideas]").forEach(b => b.addEventListener("click", () => {
+    const c = items[+b.dataset.ideas].c;
+    const match = guessIdeaCall(c);
+    $("#ideaCall").value = match;
+    $("#ideaSearch").value = "";
+    $$("[data-verdict]").forEach(x => x.setAttribute("aria-pressed", "true"));
+    renderIdeas();
+    $('nav.tabs button[data-tab="ideas"]').click();
+  }));
+}
+function guessIdeaCall(c) {
+  const calls = [...new Set(DATA.ideas.filter(i => i.source === c.source).map(i => i.call))];
+  const words = (c.program + " " + c.sponsor + " " + (c.number || "")).toLowerCase().match(/[a-z0-9]{3,}/g) || [];
+  let best = "", score = 0;
+  for (const k of calls) {
+    const kw = k.toLowerCase();
+    const s = words.filter(w => kw.includes(w)).length;
+    if (s > score) { score = s; best = k; }
+  }
+  return best;
+}
+
+// ---------- ideas ----------
+function renderIdeas() {
+  const q = $("#ideaSearch").value.trim().toLowerCase();
+  const want = pressed("[data-verdict]").map(b => b.dataset.verdict);
+  const call = $("#ideaCall").value;
+  const rows = DATA.ideas
+    .filter(i => want.includes(verdictKey(i.verdict)))
+    .filter(i => !call || i.call === call)
+    .filter(i => !q || [i.idea, i.call, i.why, i.verdict].join(" ").toLowerCase().includes(q));
+  $("#ideaCount").textContent = `${rows.length} idea${rows.length === 1 ? "" : "s"}`;
+  $("#ideaRows").innerHTML = rows.length ? rows.map(i => {
+    const k = verdictKey(i.verdict);
+    return `<tr>
+      <td><span class="badge b-${k}">${esc(k[0].toUpperCase() + k.slice(1))}</span><div class="small">${inline(i.verdict)}</div></td>
+      <td class="idea">${inline(i.idea)}</td>
+      <td>${inline(i.call)}</td>
+      <td>${inline(i.why)}</td>
+      <td class="small"><a href="#" data-doc="${esc(i.source)}" data-anchor="${esc(i.idea.replace(/^[A-Z0-9]+\.\s*/, ""))}">${esc(i.source.replace("funding/", ""))}</a></td>
+    </tr>`;
+  }).join("") : `<tr><td colspan="5" class="empty">No ideas match.</td></tr>`;
+  $$("#ideaRows [data-doc]").forEach(a => a.addEventListener("click", e => { e.preventDefault(); openDoc(a.dataset.doc, a.dataset.anchor); }));
+}
+function fillIdeaCalls() {
+  const calls = [...new Set(DATA.ideas.map(i => i.call))].sort();
+  $("#ideaCall").innerHTML = `<option value="">All calls</option>` + calls.map(c => `<option value="${esc(c)}">${esc(c.replace(/\*\*/g, ""))}</option>`).join("");
+}
+
+// ---------- collaborators ----------
+function renderCollab() {
+  const q = $("#collabSearch").value.trim().toLowerCase();
+  const want = pressed("[data-cs]").map(b => b.dataset.cs);
+  const rows = DATA.collaborators
+    .filter(p => want.includes(p.status))
+    .filter(p => !q || [p.name, p.affiliation, p.expertise, p.recommended_for].join(" ").toLowerCase().includes(q));
+  $("#collabCount").textContent = `${rows.length} entr${rows.length === 1 ? "y" : "ies"}`;
+  const reg = "talent-pool/collaborators.md";
+  $("#collabRows").innerHTML = rows.length ? rows.map(p => `<tr>
+      <td><span class="badge ${p.status === "Past collaborator" ? "b-past" : p.status === "Recommended" ? "b-rec" : "b-open"}">${esc(p.status)}</span></td>
+      <td><strong>${inline(p.name)}</strong></td>
+      <td>${inline(p.affiliation)}</td>
+      <td>${inline(p.expertise)}</td>
+      <td class="small">${inline(p.recommended_for || "—")}</td>
+      <td class="small">${inline(p.evidence, reg)}</td>
+    </tr>`).join("") : `<tr><td colspan="6" class="empty">No entries match.</td></tr>`;
+}
+
+// ---------- log ----------
+const KIND_LABEL = { scan: "Funding scan", sync: "Talent pool sync", cleanup: "Cleanup", update: "Update" };
+function renderLog() {
+  const want = pressed("[data-lk]").map(b => b.dataset.lk);
+  const rows = DATA.log.filter(l => want.includes(l.kind));
+  $("#logCount").textContent = `${rows.length} entr${rows.length === 1 ? "y" : "ies"}`;
+  $("#logList").innerHTML = rows.length ? rows.map(l => `<li class="k-${l.kind}">
+      <div class="when">${esc(l.date.slice(0, 16).replace("T", " "))} UTC · ${esc(KIND_LABEL[l.kind])} · <code>${esc(l.sha)}</code></div>
+      <div>${esc(l.subject)}</div>
+    </li>`).join("") : `<li class="empty">No entries.</li>`;
+}
+
+// ---------- reports ----------
+function renderReports() {
+  const docs = [...DATA.docs].sort((a, b) => (b.date || b.file).localeCompare(a.date || a.file));
+  $("#reportCards").innerHTML = docs.map(d => {
+    const n = DATA.calls.filter(c => c.source === d.file).length;
+    const m = DATA.ideas.filter(i => i.source === d.file).length;
+    return `<article class="card">
+      <div class="row-top"><span class="badge ${d.kind === "summary" ? "b-past" : "b-rec"}">${d.kind === "summary" ? "Monthly summary" : "Scan"}</span><span class="countdown">${esc(d.date)}</span></div>
+      <h3>${esc(d.title)}</h3>
+      <div class="sponsor">${n} call${n === 1 ? "" : "s"} · ${m} idea row${m === 1 ? "" : "s"}</div>
+      <div class="actions"><button class="btn" data-doc="${esc(d.file)}">Read</button><a class="btn" href="${REPO + d.file}" target="_blank" rel="noopener">GitHub</a></div>
+    </article>`;
+  }).join("");
+  $$("#reportCards [data-doc]").forEach(b => b.addEventListener("click", () => openDoc(b.dataset.doc)));
+}
+
+// ---------- boot ----------
+fetch("data.json", { cache: "no-store" })
+  .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+  .then(d => {
+    DATA = d;
+    $("#built").textContent = `Data built ${d.built.replace("T", " ").replace("+00:00", " UTC")}${d.commit ? ` from commit ${d.commit}` : ""} · source: HaoLab-UTK/Proposal`;
+    renderStats(); renderCalls(); fillIdeaCalls(); renderIdeas(); renderCollab(); renderLog(); renderReports();
+    $("#callSearch").addEventListener("input", renderCalls);
+    $$("[data-cstatus]").forEach(b => toggle(b, renderCalls));
+    $("#ideaSearch").addEventListener("input", renderIdeas);
+    $("#ideaCall").addEventListener("change", renderIdeas);
+    $$("[data-verdict]").forEach(b => toggle(b, renderIdeas));
+    $("#collabSearch").addEventListener("input", renderCollab);
+    $$("[data-cs]").forEach(b => toggle(b, renderCollab));
+    $$("[data-lk]").forEach(b => toggle(b, renderLog));
+    openTabFromHash();
+  })
+  .catch(err => { $("#built").textContent = "Could not load data.json (" + err.message + ")."; });
+</script>
+</body>
+</html>
