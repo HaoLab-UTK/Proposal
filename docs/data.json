@@ -1,6 +1,6 @@
 {
- "built": "2026-11-22T14:11:23+00:00",
- "commit": "81c6a3d",
+ "built": "2026-11-22T14:11:32+00:00",
+ "commit": "6a2e3fe",
  "calls": [
   {
    "deadline_text": "Pre-proposal 2027-01-07, 2:00 PM ET (full proposal by invitation 2027-03-11)",
@@ -1148,6 +1148,12 @@
   }
  ],
  "log": [
+  {
+   "sha": "6a2e3fe",
+   "date": "2026-11-22T14:11:23+00:00",
+   "subject": "Funding call scan (2026-11-22): add in-progress BIO and Sloan research notes",
+   "kind": "scan"
+  },
   {
    "sha": "81c6a3d",
    "date": "2026-11-22T14:11:11+00:00",
