@@ -1,6 +1,6 @@
 {
- "built": "2026-11-22T14:11:11+00:00",
- "commit": "b447b4c",
+ "built": "2026-11-22T14:11:23+00:00",
+ "commit": "81c6a3d",
  "calls": [
   {
    "deadline_text": "Pre-proposal 2027-01-07, 2:00 PM ET (full proposal by invitation 2027-03-11)",
@@ -1148,6 +1148,12 @@
   }
  ],
  "log": [
+  {
+   "sha": "81c6a3d",
+   "date": "2026-11-22T14:11:11+00:00",
+   "subject": "Funding call scan (2026-11-22): add NSF ECCS EPCL research notes",
+   "kind": "scan"
+  },
   {
    "sha": "b447b4c",
    "date": "2026-11-22T14:10:40+00:00",
