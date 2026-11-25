@@ -1,6 +1,6 @@
 {
- "built": "2026-11-22T14:28:10+00:00",
- "commit": "63e6ff6",
+ "built": "2026-11-25T14:11:25+00:00",
+ "commit": "4482b31",
  "calls": [
   {
    "deadline_text": "Pre-proposal 2027-01-07, 2:00 PM ET (full proposal by invitation 2027-03-11)",
@@ -2572,6 +2572,12 @@
   }
  ],
  "log": [
+  {
+   "sha": "4482b31",
+   "date": "2026-11-22T14:28:25+00:00",
+   "subject": "Funding call scan (2026-11-22): 5 new calls, 54 ideas",
+   "kind": "scan"
+  },
   {
    "sha": "63e6ff6",
    "date": "2026-11-22T14:13:22+00:00",
