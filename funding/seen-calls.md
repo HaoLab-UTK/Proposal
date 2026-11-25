@@ -23,3 +23,4 @@ closed calls are removed.
 | 2026-11-22 | NSF ENG/ECCS | Energy, Power, Control, and Learning (EPCL) | NSF 26-514 | https://www.nsf.gov/funding/opportunities/eccs-engineering-electrical-communications-computing-systems/nsf26-514/solicitation | 2026-11-22.md |
 | 2026-11-22 | NSF BIO | Core Research in Biological Sciences (BIO Core), Ecosystem Science cluster | NSF 26-517 | https://www.nsf.gov/funding/opportunities/bio-core-core-research-biological-sciences/nsf26-517/solicitation | 2026-11-22.md |
 | 2026-11-22 | Alfred P. Sloan Foundation | Energy and Environment program, unsolicited letters of inquiry | not stated | https://sloan.org/programs/research/energy-and-environment | 2026-11-22.md |
+| 2026-11-25 | UT Knoxville Institute for a Secure and Sustainable Environment (ISSE) | Request for Proposals for 2027 Seed Grant Funding | not stated | https://isse.utk.edu/opportunities-for-faculty-students-partners/seed-grants/ | 2026-11-25.md |
