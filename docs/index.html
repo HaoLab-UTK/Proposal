@@ -139,6 +139,10 @@ h2 { font-family: var(--font-display); font-size: 20px; font-weight: 700; margin
   padding: 4px 12px; font: 500 13px var(--font-body); cursor: pointer;
 }
 .pill-btn:hover { border-color: var(--accent); color: var(--accent); }
+.pill-btn.fed { background: var(--accent-soft); border: 1.5px solid var(--accent); color: var(--ink); font-weight: 600; }
+.rw-item.fed .rw-name { fill: var(--accent); font-weight: 700; }
+.rw-fedtag { fill: var(--accent); }
+.rw-fedtag-text { fill: var(--accent-ink); font-size: 9.5px; font-weight: 700; letter-spacing: .06em; font-family: var(--font-body); }
 
 /* tabs */
 .tabs { display: flex; gap: 2px; overflow-x: auto; border-bottom: 1px solid var(--line); }
@@ -191,6 +195,15 @@ h2 { font-family: var(--font-display); font-size: 20px; font-weight: 700; margin
   padding: 16px 16px 14px; display: flex; flex-direction: column; gap: 10px; min-width: 0;
 }
 .card-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.card.fed { border: 2px solid var(--accent); background: linear-gradient(var(--accent-soft), var(--surface) 96px); padding: 15px 15px 13px; }
+.pills { display: inline-flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.pill.p-fed { background: var(--accent); color: var(--accent-ink); }
+.pill.p-fed .sw { background: var(--accent-ink); }
+.group-head { grid-column: 1 / -1; display: flex; align-items: baseline; gap: 10px; margin: 6px 0 -2px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
+.group-head h3 { margin: 0; font-family: var(--font-display); font-size: 17px; letter-spacing: -.01em; }
+.group-head.fed h3 { color: var(--accent); }
+.group-head span { color: var(--muted); font-size: 13px; }
+.cards > .group-head:not(:first-child) { margin-top: 18px; }
 .days { text-align: right; line-height: 1.1; }
 .days b { font-family: var(--font-data); font-size: 22px; font-weight: 500; }
 .days small { color: var(--muted); }
@@ -318,6 +331,7 @@ dialog::backdrop { background: rgba(6, 14, 18, .5); }
       <div class="legend" aria-hidden="true">
         <span><i class="sw" style="background:var(--warn)"></i>Due within 21 days</span>
         <span><i class="sw" style="background:var(--accent)"></i>Open</span>
+        <span><i class="sw sq" style="background:var(--accent);width:22px;height:12px"></i>Federal agency (highlighted)</span>
       </div>
     </div>
     <div class="runway" id="runway"></div>
@@ -485,6 +499,9 @@ function shortName(c) {
   if (best) return best;
   return plain(c.sponsor).split(/\s[—(]/)[0].trim();
 }
+// Calls from U.S. federal agencies (not center sub-awards, foundations or universities).
+const FEDERAL_RE = /^(U\.?S\.?\b|NSF|DOE|USGS|NOAA|NASA|USDA|NIFA|NRCS|EPA|NIH|NIST|DOT|DHS|DoD|DoW|DARPA|ONR|AFOSR|ARO|ARPA-E|SERDP|ESTCP|Department of)/;
+function isFederal(c) { return FEDERAL_RE.test(plain(c.sponsor).split(/\s[—(]/)[0].trim()); }
 function pressed(sel) { return $$(sel).filter(b => b.getAttribute("aria-pressed") === "true"); }
 function toggle(btn, fn) { btn.addEventListener("click", () => { btn.setAttribute("aria-pressed", btn.getAttribute("aria-pressed") === "true" ? "false" : "true"); fn(); }); }
 
@@ -579,10 +596,10 @@ function renderRunway() {
   const host = $("#runway");
   const all = DATA.calls.map(c => ({ c, s: callStatus(c) }));
   const items = all.filter(x => x.s.open && x.s.next).sort((a, b) => a.s.days - b.s.days);
-  const rolling = all.filter(x => x.s.open && !x.s.next);
+  const rolling = all.filter(x => x.s.open && !x.s.next).sort((a, b) => isFederal(b.c) - isFederal(a.c));
   $("#rolling").innerHTML = rolling.length
     ? `<span class="k">Rolling · no fixed date</span>` + rolling.map(x =>
-        `<button class="pill-btn" data-doc="${esc(x.c.source)}" data-anchor="${esc(x.c.section)}" title="${esc(plain(x.c.program))}">${esc(shortName(x.c))}</button>`).join("")
+        `<button class="pill-btn${isFederal(x.c) ? " fed" : ""}" data-doc="${esc(x.c.source)}" data-anchor="${esc(x.c.section)}" title="${esc(plain(x.c.program))}">${esc(shortName(x.c))}</button>`).join("")
     : "";
   $("#rolling").hidden = !rolling.length;
   $$("#rolling [data-doc]").forEach(b => b.addEventListener("click", () => openDoc(b.dataset.doc, b.dataset.anchor)));
@@ -600,14 +617,15 @@ function renderRunway() {
   const placed = items.map(it => {
     const name = shortName(it.c);
     const dateLine = `${fmtShort.format(parseDate(it.s.next))} · ${it.s.days} d`;
-    const w = Math.max(name.length * 7.1, dateLine.length * 6.9) + 14;
+    const fed = isFederal(it.c);
+    const w = Math.max(name.length * 7.1, dateLine.length * 6.9 + (fed ? 34 : 0)) + 14;
     const px = x(it.s.days);
     const flip = px + w > W - padR;
     const left = flip ? px - w : px - 4;
     const right = flip ? px + 4 : px + w;
     let lane = laneEnds.findIndex(end => left > end + 10);
     if (lane === -1) { lane = laneEnds.length; laneEnds.push(right); } else laneEnds[lane] = right;
-    return { ...it, name, dateLine, w, px, flip, lane };
+    return { ...it, name, dateLine, w, px, flip, lane, fed };
   });
   const laneH = 40, top = 10;
   const axisY = top + laneEnds.length * laneH + 14;
@@ -634,11 +652,16 @@ function renderRunway() {
     const tx = p.flip ? p.px - 8 : p.px + 8;
     const anchor = p.flip ? "end" : "start";
     const color = p.s.days <= SOON_DAYS ? "var(--warn)" : "var(--accent)";
-    svg += `<g class="rw-item" tabindex="0" role="button" data-i="${i}" aria-label="${esc(p.name)}, due ${esc(p.s.next)}, ${p.s.days} days left">`;
+    svg += `<g class="rw-item${p.fed ? " fed" : ""}" tabindex="0" role="button" data-i="${i}" aria-label="${p.fed ? "Federal: " : ""}${esc(p.name)}, due ${esc(p.s.next)}, ${p.s.days} days left">`;
     svg += `<rect class="rw-hit" rx="6" x="${p.flip ? p.px - p.w - 2 : p.px - 8}" y="${ly - 2}" width="${p.w + 10}" height="${axisY - ly + 10}"/>`;
     svg += `<line class="rw-stem" x1="${p.px}" x2="${p.px}" y1="${ly + 4}" y2="${axisY}"/>`;
     svg += `<text class="rw-name" x="${tx}" y="${ly + 13}" text-anchor="${anchor}">${esc(p.name)}</text>`;
     svg += `<text class="rw-date" x="${tx}" y="${ly + 28}" text-anchor="${anchor}">${esc(p.dateLine)}</text>`;
+    if (p.fed) {
+      const dw = p.dateLine.length * 6.9;
+      const bx = p.flip ? tx - dw - 32 : tx + dw + 6;
+      svg += `<rect class="rw-fedtag" x="${bx}" y="${ly + 17}" width="26" height="13" rx="3"/><text class="rw-fedtag-text" x="${bx + 13}" y="${ly + 26.5}" text-anchor="middle">FED</text>`;
+    }
     svg += `<circle cx="${p.px}" cy="${axisY}" r="6.5" fill="${color}" stroke="var(--surface)" stroke-width="2"/>`;
     svg += `</g>`;
   });
@@ -684,15 +707,19 @@ function renderCalls() {
   const items = DATA.calls.map(c => ({ c, s: callStatus(c) }))
     .filter(({ s }) => want.includes(s.open ? "open" : "closed"))
     .filter(({ c }) => !q || plain([c.sponsor, c.program, c.team, c.fit, c.number].join(" ")).toLowerCase().includes(q))
-    .sort((a, b) => (a.s.days ?? (a.s.open ? 9999 : 99999)) - (b.s.days ?? (b.s.open ? 9999 : 99999)));
+    .sort((a, b) => (isFederal(b.c) - isFederal(a.c)) || ((a.s.days ?? (a.s.open ? 9999 : 99999)) - (b.s.days ?? (b.s.open ? 9999 : 99999))));
   $("#callCount").textContent = plural(items.length, "call");
+  const nFed = items.filter(x => isFederal(x.c)).length;
+  const head = (fed, n) => `<div class="group-head${fed ? " fed" : ""}"><h3>${fed ? "Federal agencies" : "Centers, foundations and university programs"}</h3><span>${plural(n, "call")}</span></div>`;
   $("#callCards").innerHTML = items.length ? items.map(({ c, s }, i) => {
+    const fed = isFederal(c);
+    const lead = i === 0 ? head(fed, fed ? nFed : items.length - nFed) : (i === nFed && !fed ? head(false, items.length - nFed) : "");
     const fitText = plain(c.fit).replace(/;\s*\d\s*$/, "");
     const right = s.next
       ? `<div class="days"><b>${s.days}</b> <small class="mono">d</small><span>${esc(fmtLong.format(parseDate(s.next)))}</span></div>`
       : (s.open ? `<div class="days"><span>no fixed date</span></div>` : `<div class="days"><span>closed ${esc(c.dates[c.dates.length - 1] || "")}</span></div>`);
-    return `<article class="card">
-      <div class="card-top"><span class="pill ${s.cls}"><i class="sw"></i>${esc(s.label)}</span>${right}</div>
+    return `${lead}<article class="card${fed ? " fed" : ""}">
+      <div class="card-top"><span class="pills">${fed ? `<span class="pill p-fed"><i class="sw"></i>Federal</span>` : ""}<span class="pill ${s.cls}"><i class="sw"></i>${esc(s.label)}</span></span>${right}</div>
       <h3>${inline(c.program)}</h3>
       <div class="sponsor">${inline(c.sponsor)}${c.number ? ` · <span class="mono" style="font-size:12px">${esc(c.number)}</span>` : ""}</div>
       <dl>
